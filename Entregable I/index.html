@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title></title>
+    <link rel="stylesheet" href="assets/css/styles.css">
+    <link rel="stylesheet" type="text/css" href="assets/css/prism.css">
+  </head>
+  <body>
+    <article class="markdown-body">
+<h1 id="ejercicios-entregables-de-javascript-nativo">Ejercicios entregables de JavaScript nativo</h1>
+<h2 id="ejercicios">Ejercicios</h2>
+<ol>
+<li><p>[2pt] Implementa las siguientes funciones sobre arrays sin utilizar las funciones nativas de javascript:</p>
+<pre><code class="lang-javascript"> // Filtrar duplicación
+ unique([&#39;Salva&#39;, &#39;Sandra&#39;, &#39;Manuel&#39;, &#39;Daniel&#39;, &#39;salva&#39;, &#39;Sandra&#39;], explicit);
+ // explicit = false => [&#39;Salva&#39;, &#39;Sandra&#39;, &#39;Manuel&#39;, &#39;Daniel&#39;]
+ // explicit = true => [&#39;Salva&#39;, &#39;Sandra&#39;, &#39;Manuel&#39;, &#39;Daniel&#39;, &#39;salva&#39;]
+
+ // array unidimensional
+ flatArray([&#39;José&#39;, &#39;Manuel&#39;, [&#39;María&#39;, &#39;Cristina&#39;], [&#39;Lucía&#39;, [&#39;Luis&#39;, &#39;Carlos&#39;]]]);
+ // [&#39;José&#39;, &#39;Manuel&#39;, &#39;María&#39;, &#39;Cristina&#39;, &#39;Lucía&#39;, &#39;Luis&#39;, &#39;Carlos&#39;]
+
+ // Revertir
+ reverse([&#39;a&#39;, &#39;b&#39;, &#39;c&#39;, &#39;d&#39;, &#39;e&#39;, &#39;f&#39;]);
+ // [&#39;f&#39;, &#39;e&#39;, &#39;d&#39;, &#39;c&#39;, &#39;b&#39;, &#39;a&#39;]
+
+ // Ordenar
+ const list = [
+   { name: &#39;Dani&#39;, age: 20 },
+   { name: &#39;Andres&#39;, age: 30 },
+   { name: &#39;Marc&#39;, age: 40 },
+   { name: &#39;Marc&#39;, age: 18 },
+   { name: &#39;Isidoro&#39;, age: 25 },
+ ];
+ orderBy(list, &#39;name&#39;);
+ /* [
+ { name: &#39;Andres&#39;, age: 30 },
+ { name: &#39;Dani&#39;, age: 20 },
+ { name: &#39;Isidoro&#39;, age: 25 },
+ { name: &#39;Marc&#39;, age: 40 },
+ { name: &#39;Marc&#39;, age: 18 },
+]; */
+
+ // También puede aceptar varios parámetros
+ orderBy(list, &#39;name&#39;, &#39;age&#39;);
+ /* [
+ { name: &#39;Andres&#39;, age: 30 },
+ { name: &#39;Dani&#39;, age: 20 },
+ { name: &#39;Isidoro&#39;, age: 25 },
+ { name: &#39;Marc&#39;, age: 18 },
+ { name: &#39;Marc&#39;, age: 40 },
+]; */
+
+// En caso de pasar un parámetro que no existe hay que devolver un error
+</code></pre>
+<ul>
+<li>Con funciones nativas me refiero a flat(2), reverse(3), sort(4)</li>
+<li><code>unique</code> el parámetro <code>explicit</code> es boolean, por defecto es false, en este caso la diferencia de mayúscula o minúscula para los textos no cuenta, en caso de ser <code>true</code> se debe tener en cuenta.</li>
+<li>La función <code>orderBy</code> debe aceptar varios parámetros para ordenar, en caso de pasar un parámetro que no existe la función debe devolver un error.</li>
+</ul>
+</li>
+<li><p>[3pt] Tenemos una base de datos de videos de la siguiente forma:</p>
+<pre><code class="lang-javascript"> const videos = [
+   {
+     id: 12,
+     title: &#39;Cats paradise&#39;,
+     category: &#39;entertainment&#39;,
+     likes: 46500,
+     views: 123526,
+     duration: '12min',
+     publish_date: '10/09/2018 01:10:42',
+     comments: {
+       total: 343
+     }
+   },
+   {
+    id: 13,
+    title: &#39;one day more&#39;,
+    category: &#39;entertainment&#39;,
+    likes: 52,
+    views: 601,
+    duration: '8min',
+    publish_date: '10/09/2018 15:18:25',
+    comments: {
+      total: 10
+    }
+  },
+  {
+    id: 14,
+    title: &#39;Wild One&#39;,
+    category: &#39;music&#39;,
+    likes: 56,
+    views: 311,
+    duration: '4.5min',
+    publish_date: '02/05/2018 00:16:03',
+    comments: {
+      total: 343
+    },
+  },
+    {
+      id: 15,
+      title: &#39;We are happy&#39;,
+      category: &#39;music&#39;,
+      likes: 120,
+      views: 420,
+      duration: '4min',
+      publish_date: '02/05/2018 00:16:03',
+      comments: {
+        total: 48
+      }
+  },
+  {
+    id: 16,
+    title: &#39;With you&#39;,
+    category: &#39;music&#39;,
+    likes: 142,
+    views: 1235,
+    duration: '3min',
+    publish_date: '22/10/2018 14:01:26',
+    comments: {
+      total: 230
+    }
+  }
+ ];
+</code></pre>
+<ul>
+<li><p>Escribe una función <code>getVideosInfo(videos)</code> que devuelva un objeto con el número de videos por categoría, el video con más likes y views y la media de duración de los videos. Por ejemplo:</p>
+<pre><code class="lang-javascript">getVideosInfo(videos);
+/*
+{
+  &#39;categories&#39;: {
+    &#39;entertainment&#39;: 2,
+    &#39;music&#39;: 3
+  },
+  &#39;top_video&#39;: &#39;Cats paradise&#39;
+  &#39;duration_average&#39;: &#39;6min&#39;
+}
+*/
+</code></pre>
+</li>
+<li><p>Escribe una función <code>getCategoryDetails(videos, &#39;category&#39;)</code> que debería devolver un objeto con el número de videos de la categoría, la media de duración de los videos, el <code>id</code> del video mejor valorado, el total de visualización. Por ejemplo:</p>
+<pre><code class="lang-javascript">getCategoryDetails(videos, &#39;music&#39;);
+  /*
+  {
+    &#39;videos&#39;: 2,
+    &#39;best_video&#39;: 16,
+    &#39;total_views&#39;: 1966,
+    &#39;duration_average&#39;: &#39;3.5min&#39;
+  }
+  */
+</code></pre>
+</li>
+</ul>
+</li>
+<li><p>[3pt] Crea una función <code>checkSyntax(string)</code> que valida que los paréntesis, corchetes y llaves estén bien cerrados en un string devolviendo true o false, en caso de pasar un parámetro que no sea string se debe devolver un error:</p>
+<pre><code class="lang-javascript">checkSyntax(string);
+// &#39;(test()[]{})&#39; => true
+// &#39;((test)&#39; => false
+// &#39;)tets())&#39; => false
+// &#39;([)]test{}&#39; => false
+// &#39;{[]()}&#39; => true
+// &#39;}test()}&#39; => false
+...
+</code></pre>
+</li>
+<li><p>[2pt] Crea una función validate_password(password) que valide si una contraseña sigue las reglas siguientes: (devuelve true o false, error en caso de que el parámetro no es tipo string)</p>
+<pre><code class="lang-javascript">validate_password(password);
+// Longitud contraseña entre 8 y 16
+// Debe contener mínimo una letra en minúscula
+// Debe contener mínimo una letra en mayúscula
+// Debe contener mínimo un carácter especial de los siguientes: /-_.,|%&
+// Debe contener mínimo un numero
+// No debe contener 3 caracteres iguales seguidos, ejm: aaa1452
+
+</code></pre>
+</li>
+</ol>
+<h2 id="restricciones">Restricciones</h2>
+<p>Todos los ejercicios deben completarse utilizando únicamente código nativo de JavaScript, preferiblemente ECMAScript 2015.</p>
+<p>Todo el código proporcionado debe estar escrito por el alumno (no pueden utilizarse librerías externas).</p>
+<h2 id="evaluaci-n">Evaluación</h2>
+<p>La nota de esta entrega representa un 25% sobre la nota final de la asignatura.</p>
+<p>Si la nota del entregable es menos de 3, el alumno debería recuperar al final de curso.</p>
+<p>Se valorará tanto el grado de resolución del ejercicio como la calidad de la implementación (aprovechamiento de las funciones del lenguaje, legibilidad y simplicidad del código...).</p>
+<h2 id="entrega">Entrega</h2>
+<p>Deberá entregarse la carpeta del enunciado con los ejercicios completados en sus respectivos archivos, todo comprimido en formato zip, <strong>antes del 14/02/2021 a las 23:00</strong>.</p>
+
+    </article>
+    <script src="assets/js/prism.js"></script>
+  </body>
+</html>
